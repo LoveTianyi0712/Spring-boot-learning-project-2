@@ -1,9 +1,7 @@
 package com.jxglyf.mpdemo.mapper;
 
 import com.jxglyf.mpdemo.entity.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -18,4 +16,15 @@ public interface UserMapper {
     @Insert("INSERT INTO user VALUES (#{id}, #{username}, #{password}, #{birthday})")
     public int insert(User user);
 
+    // Update one user
+    @Update("UPDATE user SET username = #{username}, password = #{password}, birthday = #{birthday} WHERE id = #{id}")
+    public int update(User user);
+
+    // Delete the user
+    @Delete("DELETE FROM user WHERE id = #{id}")
+    public int delete(int id);
+
+    // Get the user
+    @Select("SELECT * FROM user WHERE id = #{id}")
+    public User findById(int id);
 }

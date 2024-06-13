@@ -3,9 +3,7 @@ package com.jxglyf.mpdemo.Controller;
 import com.jxglyf.mpdemo.entity.User;
 import com.jxglyf.mpdemo.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,7 +13,7 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
-    @GetMapping("/user")
+    @GetMapping("/user/query")
     public List query(){
 
         List<User> list = userMapper.find();
@@ -24,7 +22,7 @@ public class UserController {
 
     }
 
-    @PostMapping("/user")
+    @PostMapping("/user/save")
     public String save(User user){
 
         int i = userMapper.insert(user);
@@ -33,5 +31,31 @@ public class UserController {
         }else{
             return "fail";
         }
+    }
+
+    @PostMapping("/user/update")
+    public String update(User user){
+        int i = userMapper.update(user);
+        if(i > 0){
+            return "success";
+        }else{
+            return "fail";
+        }
+    }
+
+    @PostMapping("/user/delete")
+    public String delete(int id){
+        int i = userMapper.delete(id);
+        if(i > 0){
+            return "success";
+        }else{
+            return "fail";
+        }
+    }
+
+    @GetMapping("user/find/{id}")
+    public String find(@PathVariable int id){
+        User user = userMapper.findById(id);
+        return user.toString();
     }
 }
