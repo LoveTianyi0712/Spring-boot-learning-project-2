@@ -1,7 +1,16 @@
 package com.jxglyf.mpdemo.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
+@TableName("user")
 public class User {
+
+    @TableId(type = IdType.AUTO)
     private int id;
+    // @TableField(value = "nickname", exist = false)
     private String username;
     private String password;
     private String birthday;

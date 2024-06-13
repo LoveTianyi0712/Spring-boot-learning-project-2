@@ -14,9 +14,9 @@ public class UserController {
     private UserMapper userMapper;
 
     @GetMapping("/user/query")
-    public List query(){
+    public List<User> query(){
 
-        List<User> list = userMapper.find();
+        List<User> list = userMapper.selectList(null);
         System.out.println(list);
         return list;
 
@@ -26,6 +26,8 @@ public class UserController {
     public String save(User user){
 
         int i = userMapper.insert(user);
+        System.out.println(user);
+
         if(i > 0){
             return "success";
         }else{
@@ -35,7 +37,7 @@ public class UserController {
 
     @PostMapping("/user/update")
     public String update(User user){
-        int i = userMapper.update(user);
+        int i = userMapper.updateById(user);
         if(i > 0){
             return "success";
         }else{
@@ -45,7 +47,7 @@ public class UserController {
 
     @PostMapping("/user/delete")
     public String delete(int id){
-        int i = userMapper.delete(id);
+        int i = userMapper.deleteById(id);
         if(i > 0){
             return "success";
         }else{
@@ -55,7 +57,7 @@ public class UserController {
 
     @GetMapping("user/find/{id}")
     public String find(@PathVariable int id){
-        User user = userMapper.findById(id);
+        User user = userMapper.selectById(id);
         return user.toString();
     }
 }
