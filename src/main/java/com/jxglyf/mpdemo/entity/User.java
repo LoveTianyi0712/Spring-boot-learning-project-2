@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
-@TableName("user")
+import java.util.List;
+
+@TableName("t_user")
 public class User {
 
     @TableId(type = IdType.AUTO)
@@ -14,6 +16,10 @@ public class User {
     private String username;
     private String password;
     private String birthday;
+
+    // Describe all the order of the user
+    @TableField(exist = false)
+    private List<Order> orders;
 
     public int getId() {
         return id;
@@ -47,6 +53,14 @@ public class User {
         this.birthday = birthday;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -54,7 +68,7 @@ public class User {
                 ", id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", orders=" + orders +
                 '}';
     }
-
 }

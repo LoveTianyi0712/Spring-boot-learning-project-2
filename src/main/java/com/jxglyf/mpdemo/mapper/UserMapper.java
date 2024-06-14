@@ -29,4 +29,24 @@ public interface UserMapper extends BaseMapper<User> {
 //    @Select("SELECT * FROM user WHERE id = #{id}")
 //    public User findById(int id);
 
+    // Query user information according the id: SELECT * FROM user WHERE id =
+    @Select("SELECT * FROM t_user WHERE id = #{id}")
+    User selectById(int id);
+
+    // Query user and all of its orders
+    @Select("SELECT * FROM t_user")
+    @Results(
+            {
+                    @Result(column = "id", property = "id"),
+                    @Result(column = "username", property = "username"),
+                    @Result(column = "password", property = "password"),
+                    @Result(column = "birthday", property = "birthday"),
+                    @Result(column = "id", property = "orders", javaType = List.class,
+                            many=@Many(select = "com.jxglyf.mpdemo.mapper.OrderMapper.selectByUid")
+                    )
+
+            }
+    )
+    List<User> selectAllUserAndOrders();
+
 }
